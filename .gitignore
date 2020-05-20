@@ -3,3 +3,12 @@
 ################################################################################
 
 /Teeltonika.Application/bin/Debug/netcoreapp3.1
+/Teeltonika.Application/obj
+/Teltonica.Server/obj
+/Teltonica.Server/bin/Debug/netcoreapp3.1
+/Teltonika.Core/bin/Debug/netcoreapp3.1
+/Teltonika.Core/obj
+/Teltonika.Handlers/bin/Debug/netcoreapp3.1
+/Teltonika.Handlers/obj
+/Teeltoonika.Protocol/obj
+/Teeltoonika.Protocol/bin/Debug/netcoreapp3.1
