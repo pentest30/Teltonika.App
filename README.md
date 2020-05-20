@@ -1,4 +1,4 @@
-## Teltonika App
+## Teltonika Gps tracker 
 
 ## description
 **proof of concept app  of Gps Tracker based on teltonika protocol** using VueJs 3, Vuex,  Signalr, leaflet map, .net core 3, MediatR as a dispatcher of events and kestrel as TCP server .
