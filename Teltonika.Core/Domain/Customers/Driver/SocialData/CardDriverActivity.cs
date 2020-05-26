@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Teltonika.Core.Domain.Customers.SocialData
+namespace Teltonika.Core.Domain.Customers.Driver.SocialData
 {
     public class CardDriverActivity
     {

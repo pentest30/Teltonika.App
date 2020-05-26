@@ -2,11 +2,9 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Teltonica.Server;
 using Teltonika.Core;
-using Teltonika.Core.ReverseGeoCoding;
 
-namespace TeltonikaDokerListener
+namespace Teltonika.App
 {
     public static class ServiceAppExtensions
     {

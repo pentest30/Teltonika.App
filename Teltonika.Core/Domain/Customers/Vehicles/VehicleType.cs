@@ -7,7 +7,7 @@ namespace Teltonika.Core.Domain.Customers.Vehicles
        // //  [Display(Name = "Véhicule léger")]
         Car,
        // //  [Display(Name = "Tracteur")]
-        Track,
+        Truck,
         ////  [Display(Name = "Bus")]
         Bus
 

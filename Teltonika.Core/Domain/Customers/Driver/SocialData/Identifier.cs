@@ -1,7 +1,6 @@
 ﻿using System;
-using Teltonika.Core.Domain.Customers.Vehicles;
 
-namespace Teltonika.Core.Domain.Customers.SocialData
+namespace Teltonika.Core.Domain.Customers.Driver.SocialData
 {
     public class Identifier : BaseEntity
     {

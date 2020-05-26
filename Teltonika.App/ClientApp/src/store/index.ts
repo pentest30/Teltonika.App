@@ -3,6 +3,7 @@ import Vuex, { StoreOptions } from 'vuex';
 import { RootState } from './types';
 import { counter } from './counter/index';
 import { map } from './map/index';
+import {auth} from './auth/index'
 import { webSocketPlugin } from './plugins/webSocketPlugin';
 Vue.use(Vuex);
 
@@ -15,7 +16,8 @@ const store: StoreOptions<RootState> = {
   },
   modules: {
       counter,
-      map
+      map,
+      auth
     },
     plugins: [webSocketPlugin()]
 };

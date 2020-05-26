@@ -2,7 +2,6 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Connections;
 using Microsoft.AspNetCore.Hosting;
 using Teltonica.Server;
-using TeltonikaDokerListener;
 
 namespace Teltonika.App
 {

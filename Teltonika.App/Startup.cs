@@ -1,6 +1,8 @@
 using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Reflection;
+using System.Text;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -20,6 +22,11 @@ using Teltonika.App.Migration;
 using Teltonika.Core.Domain.Users;
 using Teltonika.Core.ReverseGeoCoding;
 using EFCore.DbContextFactory.Extensions;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Teeltonika.Application.Service;
+using Teltonika.Core;
+
 namespace Teltonika.App
 {
     public class Startup
@@ -49,6 +56,33 @@ namespace Teltonika.App
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<UserApp, IdentityRole<Guid>>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ApplicationContext>();
+
+            // ===== Add Jwt Authentication ========
+            var appSettingsSection = Configuration.GetSection("AppSettings");
+            var appSettings = appSettingsSection.Get<AppSettings>();
+            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear(); // => remove default claims
+            services
+                .AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+                })
+                .AddJwtBearer(cfg =>
+                {
+                    cfg.RequireHttpsMetadata = false;
+                    cfg.SaveToken = true;
+                    cfg.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                        ClockSkew = TimeSpan.Zero // remove delay of token when expire
+                    };
+                });
+            // --- end JwT config ---
             services.AddSqlServerDbContextFactory<ApplicationContext>();
             services.AddMediatR(typeof(Startup));
             services.AddAutoMapper(typeof(Startup));
@@ -56,7 +90,9 @@ namespace Teltonika.App
             services.AddSignalR();
             services.AddSingleton<ReverseGeoCodingService>();
             services.AddSingleton<AsynchronousIoServer>();
-                //services.AddScoped< INotificationHandler < TLGpsDataEvents >, TeltonikaHandler >();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IVehicleService, VehicleService>();
+            //services.AddScoped< INotificationHandler < TLGpsDataEvents >, TeltonikaHandler >();
         }
         private static void SeedInitialData(IApplicationBuilder app)
         {

@@ -35,7 +35,7 @@ namespace Teltonika.Core.Domain.Customers.Vehicles
         public Guid? Box_Id { get; set; }
         public Guid? InteerestAreaId { get; set; }
         public InterestArea InterestArea { get; set; }
-        public ICollection<Driver> Drivers { get; set; }
+        public ICollection<Driver.Driver> Drivers { get; set; }
         public ICollection<VehicleAlarrm> Alarrms { get; set; }
         public bool SpeedAlertEnabled { get; set; }
         public DateTime MileStoneUpdateUtc { get; set; }

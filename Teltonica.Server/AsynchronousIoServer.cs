@@ -31,7 +31,7 @@ namespace Teltonica.Server
         {
             
             _logger.LogInformation("new connection: " + connection.ConnectionId + ":" + connection.RemoteEndPoint.AddressFamily);
-            var imei = String.Empty;
+            var imei = string.Empty;
 
             while (true)
             {
@@ -48,8 +48,9 @@ namespace Teltonica.Server
                         receivedData.Add(segment.ToArray());
                     }
                     var data = builder.ToString();
+                    // remove bad characters 
                     data =  Regex.Replace(data, @"[^\w\.@-]", "", RegexOptions.None);
-                    // if the data  received is a valid imei we send to modem 1
+                    // if the data  received is  valid imei we send to modem 1
                     if (Commonhelper.IsValidImei(data))
                     {
                         byte[] b = {0x01};
@@ -63,16 +64,18 @@ namespace Teltonica.Server
                     // if the data received is avl data we parse the avl data and send to the modem the number of data received
                     else
                     {
-                        var gpsResult = await ParseAvlDataAsync(imei, receivedData.FirstOrDefault()).ConfigureAwait(false);
-                        var events = new TLGpsDataEvents
+                        foreach (var receivedBytes in receivedData)
                         {
-                            Id = Guid.NewGuid(),
-                            Events = gpsResult
-                        };
-                        var bytes = Convert.ToByte(gpsResult.Count);
-                        await connection.Transport.Output.WriteAsync(new byte[] { 0x00, 0x00, 0x00, bytes }).ConfigureAwait(false);
-                        // _semaphore.WaitAsync();
-                        _mediator.Publish(events).GetAwaiter();
+                            var gpsResult = await ParseAvlDataAsync(imei, receivedBytes).ConfigureAwait(false);
+                            var events = new TLGpsDataEvents
+                            {
+                                Id = Guid.NewGuid(),
+                                Events = gpsResult
+                            };
+                            var bytes = Convert.ToByte(gpsResult.Count);
+                            await connection.Transport.Output.WriteAsync(new byte[] { 0x00, 0x00, 0x00, bytes }).ConfigureAwait(false);
+                            _mediator.Publish(events).GetAwaiter();
+                        }
                         
                     }
                     if (result.IsCompleted)
@@ -98,7 +101,6 @@ namespace Teltonica.Server
             List<CreateTeltonikaGps> gpsResult = new List<CreateTeltonikaGps>();
             var parser = new DevicesParser(false);
             gpsResult.AddRange(parser.Decode(new List<byte>(buffer), imei));
-            // await GeoReverseCodeGpsData(gpsResult);
             LogAvlData(gpsResult);
             return gpsResult;
         }

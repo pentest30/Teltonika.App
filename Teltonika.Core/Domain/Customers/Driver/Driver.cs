@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 
-namespace Teltonika.Core.Domain.Customers.Vehicles
+namespace Teltonika.Core.Domain.Customers.Driver
 {
     public class Driver : BaseEntity
     {

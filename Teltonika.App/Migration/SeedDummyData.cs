@@ -46,7 +46,7 @@ namespace Teltonika.App.Migration
                     EmailConfirmed = true
                 };
 
-                var result = await userManager.CreateAsync(user, "a$123456").ConfigureAwait(false);
+                var result = await userManager.CreateAsync(user, "Ab$123456").ConfigureAwait(false);
                 if (result.Succeeded)
                 {
                     var currentUser = await userManager.FindByNameAsync(user.UserName).ConfigureAwait(false);

@@ -17,6 +17,8 @@ namespace Teltonika.Core.Domain.Users
         public string Role { get; set; }
         [NotMapped]
         public string Password { get; set; }
+        [NotMapped]
+        public string Token { get; set; }
 
         // public IdentityRole Role { get; set; }
     }

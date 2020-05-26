@@ -7,6 +7,7 @@
         /// </summary>
         public string ConnectionString { get; set; }
         public ServerConfig ServerConfig { get; set; }
+        public string Secret { get; set; }
     }
 
     public class ServerConfig

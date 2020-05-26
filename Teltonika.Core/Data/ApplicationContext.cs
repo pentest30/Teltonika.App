@@ -8,15 +8,13 @@ using Teltonika.Core.Domain.Gpsdevices;
 using Teltonika.Core.Domain.Movement;
 using Teltonika.Core.Domain.Users;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Teltonika.Core.Domain.Customers.Driver;
 
 namespace Teltonika.Core.Data
 {
     public class ApplicationContext : IdentityDbContext<UserApp, IdentityRole<Guid>, Guid>
     {
-        public ApplicationContext(DbContextOptions settings) : base(settings)
-        {
-            
-        }
+        public ApplicationContext(DbContextOptions settings) : base(settings){}
         public DbSet<Box> Boxes { get; set; }
         public DbSet<Position> Positions { get; set; }
         public DbSet<Customer> Customers { get; set; }

@@ -16,14 +16,18 @@
     <Version>2.3.3</Version>
     <AssemblyVersion>2.3.3.0</AssemblyVersion>
     <FileVersion>2.3.3.0</FileVersion>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>.</DockerfileContext>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="EFCore.DbContextFactory" Version="2.0.0" />
+    <PackageReference Include="JwtCore" Version="1.1.0" />
     <PackageReference Include="MediatR" Version="8.0.1" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.4" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.4" />
@@ -36,6 +40,8 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.4" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.4" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.4" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.8" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.6.0" />
     <PackageReference Include="VueCliMiddleware" Version="3.1.1" />
   </ItemGroup>
 
@@ -47,6 +53,9 @@
 
   <ItemGroup>
     <None Remove="ClientApp\src\models\TrackingVehicleViewModel.ts" />
+    <None Remove="ClientApp\src\models\VehicleViewModel.ts" />
+    <None Remove="ClientApp\src\services\authentication\authHeader.ts" />
+    <None Remove="ClientApp\src\services\authentication\authService .ts" />
     <None Remove="ClientApp\src\store\plugins\webSocketPlugin.ts" />
     <None Remove="ClientApp\src\views\leafletMap.vue" />
   </ItemGroup>
@@ -67,6 +76,9 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\models\TrackingVehicleViewModel.ts" />
+    <TypeScriptCompile Include="ClientApp\src\models\VehicleViewModel.ts" />
+    <TypeScriptCompile Include="ClientApp\src\services\authentication\authHeader.ts" />
+    <TypeScriptCompile Include="ClientApp\src\services\authentication\authService .ts" />
     <TypeScriptCompile Include="ClientApp\src\store\plugins\webSocketPlugin.ts" />
     <TypeScriptCompile Include="ClientApp\src\views\leafletMap.vue" />
   </ItemGroup>
